@@ -15,9 +15,9 @@ public class Genre
         this.color = color;
     }
 
-    public Genre[] genres =
-    {
-        new Genre(GenreType.FUNK,"ed9d24"),
-        new Genre(GenreType.SERTANEJO,"24b4ed")
-    };
+//    public Genre[] genres =
+  //  {
+    //    new Genre(GenreType.FUNK,"ed9d24"),
+      //  new Genre(GenreType.SERTANEJO,"24b4ed")
+    //};
 }

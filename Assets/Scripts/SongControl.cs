@@ -34,7 +34,7 @@ public class SongControl : MonoBehaviour
 
         songName.text = song.songName;
 
-        SetupTags(tags[0],)
+        //SetupTags(tags[0],)
 
         songName.text = song.songName;
         songName.text = song.songName;
