@@ -13,7 +13,7 @@ public class Song
 
     public string duration;
 
-    public Genre genre;
+    public string genre;
 
     public string singer;
 
@@ -29,7 +29,7 @@ public class Song
         this.coverFilename = coverFilename;
         this.songFilename = songFilename;
         this.duration = duration;
-        this.genre.genre = genre;
+        this.genre = genre.ToString();
         this.singer = singer;
         this.year = year;
         this.singType = singType;

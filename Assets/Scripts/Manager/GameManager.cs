@@ -6,6 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public Song song;
 
+    public GameObject songControl;
+
+    public Transform parent;
+
+    public GenreManager genreManager;
+
     void Start()
     {
        /* Notes[] notes =
@@ -17,5 +23,9 @@ public class GameManager : MonoBehaviour
 
         string songText = SaveAndLoad.instance.SerializeObject<Song>(song);
         SaveAndLoad.instance.Save(song.songName, songText);
+
+        GameObject songGo = Instantiate(songControl, parent);
+        songGo.GetComponent<SongControl>().genreManager = this.genreManager;
+        songGo.GetComponent<SongControl>().SetupSong(song);
     }
 }

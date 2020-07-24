@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 
 public class Loader : MonoBehaviour
@@ -17,19 +18,20 @@ public class Loader : MonoBehaviour
     }
     #endregion
 
-    private int progress = 0;
-    List<string> languages = new List<string>();
 
     private System.Action<List<string>, int> process;
+
+    private System.Action endCalls;
 
     void Initialize()
     {
 
     }
 
-    public void StartLoader(string path, System.Action<List<string>, int> process)
+    public void StartLoader(string path, System.Action<List<string>, int> process, System.Action endCalls)
     {
         this.process = process;
+        this.endCalls = endCalls;
         StartCoroutine(CSVDownloader.DownloadData(AfterDownload, path));
     }
 
@@ -56,7 +58,7 @@ public class Loader : MonoBehaviour
         }
         else
         {
-
+           endCalls?.Invoke();
         }
     }
 
@@ -150,8 +152,6 @@ public class Loader : MonoBehaviour
                 }
                 currCharIndex++;
             }
-
-            progress = (int)((float)currCharIndex / data.Length * 100.0f);
         }
 
         onCompleted(null);

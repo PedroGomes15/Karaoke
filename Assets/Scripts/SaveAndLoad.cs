@@ -23,10 +23,23 @@ public class SaveAndLoad : MonoBehaviour
         return JsonUtility.FromJson<T>(jsonValue);
     }
 
-    public void Save(string fileName, string json)
+    public void Save(string fileName, string json, string extension = ".json")
     {
         Directory.CreateDirectory(Application.streamingAssetsPath);
-        File.WriteAllText(Application.streamingAssetsPath+"/"+ fileName+".json", json);
+        File.WriteAllText(Application.streamingAssetsPath+"/"+ fileName+extension, json);
+    }
+
+    public string Load(string fileName, string extension = ".json")
+    {
+        string url = Application.streamingAssetsPath + "/" + fileName + extension;
+        Debug.Log(url);
+        
+        if (!File.Exists(url))
+        {
+            Debug.LogError("Arquivo nao encontrado");
+            return null;
+        }
+        return File.ReadAllText(url);
     }
 
     public Sprite SpriteLoadCover(string filename)

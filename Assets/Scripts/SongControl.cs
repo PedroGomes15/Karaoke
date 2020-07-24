@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class SongControl : MonoBehaviour
 {
@@ -10,22 +11,31 @@ public class SongControl : MonoBehaviour
 
     private TextMeshProUGUI songName;
 
-    private GameObject[] tags;
+    public List<Transform> tags;
 
     private TextMeshProUGUI singerName;
 
-    private TextMeshProUGUI durationName;
-
     private TextMeshProUGUI yearName;
+
+    public GenreManager genreManager;
+
+    [HideInInspector]
+    public Song song;
 
     private void Awake()
     {
         cover = this.transform.Find("Cover").GetComponent<Image>();
-        songName = this.transform.Find("Tags").GetComponent<TextMeshProUGUI>();
-        tags = this.transform.Find("Tags").GetComponentsInChildren<GameObject>();
-        singerName = this.transform.Find("Singer").GetComponent<TextMeshProUGUI>();
-        durationName = this.transform.Find("Duration").GetComponent<TextMeshProUGUI>();
-        yearName = this.transform.Find("Year").GetComponent<TextMeshProUGUI>();
+
+        Transform vertical = this.transform.Find("VerticalLayout").GetComponent<Transform>();
+
+        songName = vertical.Find("SongName").GetComponent<TextMeshProUGUI>();
+        foreach(Transform aux in vertical.Find("Tags"))
+        {
+            tags.Add(aux);
+        }
+        singerName = vertical.Find("Singer").GetComponent<TextMeshProUGUI>();
+        yearName = vertical.Find("Year").GetComponent<TextMeshProUGUI>();
+
     }
 
     public void SetupSong(Song song)
@@ -34,16 +44,26 @@ public class SongControl : MonoBehaviour
 
         songName.text = song.songName;
 
-        //SetupTags(tags[0],)
+        Genre genre = genreManager.getGenre(song.genre);
+
+        SetupTags(tags[0], genre.color, genre.genre.ToString());
 
         songName.text = song.songName;
         songName.text = song.songName;
         songName.text = song.songName;
     }
 
-    public void SetupTags(GameObject tag, Color backgroundColor,string text)
+    public void SetupTags(Transform tag, string backgroundColor,string text)
     {
-        tag.GetComponent<Image>().color = backgroundColor;
-        tag.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        /*Color color;
+        if (ColorUtility.TryParseHtmlString(backgroundColor, out color))
+        { tag.GetComponent<Image>().color = color; }*/
+        tag.GetComponent<TextMeshProUGUI>().text = FormatText(text);
+    }
+
+    public string FormatText(string txt)
+    {
+        string _txt = txt.ToLower();
+        return _txt.First().ToString().ToUpper() + _txt.Substring(1);
     }
 }
