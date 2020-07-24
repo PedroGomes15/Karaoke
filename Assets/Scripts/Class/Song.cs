@@ -11,27 +11,27 @@ public class Song
 
     public string songFilename;
 
-    public string duration;
-
     public string genre;
 
     public string singer;
 
     public int year;
 
+    public string categorie;
+
     public SingType singType;
 
     public Notes[] notes;
 
-    public Song(string songName, string coverFilename, string songFilename, string duration, GenreType genre, string singer, int year, SingType singType, Notes[] notes)
+    public Song(string songName, string coverFilename, string songFilename, GenreType genre, string singer, int year, string categorie, SingType singType, Notes[] notes)
     {
         this.songName = songName;
         this.coverFilename = coverFilename;
         this.songFilename = songFilename;
-        this.duration = duration;
         this.genre = genre.ToString();
         this.singer = singer;
         this.year = year;
+        this.categorie = categorie;
         this.singType = singType;
         this.notes = notes;
     }

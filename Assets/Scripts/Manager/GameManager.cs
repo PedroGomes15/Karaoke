@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public Song song;
 
+    public Song[] allSongs;
+
     public GameObject songControl;
 
     public Transform parent;
@@ -21,11 +23,18 @@ public class GameManager : MonoBehaviour
         };
         song = new Song("Evidências","evidencias_cover.png", "Evidencias", "4:55","Sertanejo", "Chitãozinho e Xororó",1990,SingType.SOLO, notes);*/
 
-        string songText = SaveAndLoad.instance.SerializeObject<Song>(song);
-        SaveAndLoad.instance.Save(song.songName, songText);
+        SaveAndLoad.instance.SaveSong(song);
 
-        GameObject songGo = Instantiate(songControl, parent);
-        songGo.GetComponent<SongControl>().genreManager = this.genreManager;
-        songGo.GetComponent<SongControl>().SetupSong(song);
+        foreach (var aux in LoadSongs())
+        {
+            GameObject songGo = Instantiate(songControl, parent);
+            songGo.GetComponent<SongControl>().genreManager = this.genreManager;
+            songGo.GetComponent<SongControl>().SetupSong(aux);
+        }
+    }
+
+    public List<Song> LoadSongs()
+    {
+        return SaveAndLoad.instance.LoadSongs();
     }
 }

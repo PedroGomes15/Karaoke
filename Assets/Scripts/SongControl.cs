@@ -43,14 +43,17 @@ public class SongControl : MonoBehaviour
         cover.sprite = SaveAndLoad.instance.SpriteLoadCover(song.coverFilename);
 
         songName.text = song.songName;
+        singerName.text = song.singer;
 
         Genre genre = genreManager.getGenre(song.genre);
 
         SetupTags(tags[0], genre.color, genre.genre.ToString());
+        SetupTags(tags[1], genre.color, "Decada: " +GetDecade(song.year));
+        SetupTags(tags[2], genre.color, song.categorie);
+        SetupTags(tags[3], genre.color, FormatText(song.singType.ToString()));
 
         songName.text = song.songName;
-        songName.text = song.songName;
-        songName.text = song.songName;
+        yearName.text = "Ano: " + song.year;
     }
 
     public void SetupTags(Transform tag, string backgroundColor,string text)
@@ -65,5 +68,10 @@ public class SongControl : MonoBehaviour
     {
         string _txt = txt.ToLower();
         return _txt.First().ToString().ToUpper() + _txt.Substring(1);
+    }
+
+    public string GetDecade(int year)
+    {
+        return (year < 2000 ? (year / 10 * 10 - 1900) : (year / 10 * 10)).ToString();
     }
 }

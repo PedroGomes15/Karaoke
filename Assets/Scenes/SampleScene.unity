@@ -666,15 +666,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-    songName: Evidencias
-    coverFilename: 
-    songFilename: 
-    duration: 
-    genre: Sertanejo
-    singer: 
-    year: 0
+    songName: 'Bohemian Rhapsody '
+    coverFilename: Bohemian_Rhapsody_cover
+    songFilename: Bohemian Rhapsody
+    genre: Rock
+    singer: Queen
+    year: 1975
+    categorie: Internacional
     singType: 0
-    notes: []
+    notes:
+    - startTime: 0:24
+      endTime: 0:33
+      subtitle: "Quando eu digo que deixei de te amar\\n\xC9 porque eu te amo"
+      duetSinger: 0
+    - startTime: 0:34
+      endTime: 0:42
+      subtitle: "Quando eu digo que n\xE3o quero mais voc\xEA\\n\xC9 porque eu te
+        quero"
+      duetSinger: 0
+  allSongs: []
   songControl: {fileID: 8991621523592038298, guid: 158ef24eb7434ca44919a592e148afe2,
     type: 3}
   parent: {fileID: 1978936368}
