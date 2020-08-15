@@ -21,9 +21,13 @@ public class Song
 
     public SingType singType;
 
-    public Notes[] notes;
+    public List<Notes> notes = new List<Notes>();
 
-    public Song(string songName, string coverFilename, string songFilename, GenreType genre, string singer, int year, string categorie, SingType singType, Notes[] notes)
+    public Song()
+    {
+    }
+
+    public Song(string songName, string coverFilename, string songFilename, GenreType genre, string singer, int year, string categorie, SingType singType, List<Notes> notes)
     {
         this.songName = songName;
         this.coverFilename = coverFilename;

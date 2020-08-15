@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class SaveAndLoad : MonoBehaviour
+public static class SaveAndLoad
 {
+    /*
     public static SaveAndLoad instance = null;
     void Awake()
     {
@@ -12,24 +13,25 @@ public class SaveAndLoad : MonoBehaviour
         else if (instance != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
 
-    }
-    public string SerializeObject<T>(T obj)
+    }*/
+
+    public static string SerializeObject<T>(T obj)
     {
         return JsonUtility.ToJson(obj);
     }
 
-    public T DeserializeObject<T>(string jsonValue)
+    public static T DeserializeObject<T>(string jsonValue)
     {
         return JsonUtility.FromJson<T>(jsonValue);
     }
 
-    public void Save(string fileName, string json, string extension = ".json")
+    public static void Save(string fileName, string json, string extension = ".json")
     {
         Directory.CreateDirectory(Application.streamingAssetsPath);
         File.WriteAllText(Application.streamingAssetsPath+"/"+ fileName+extension, json);
     }
 
-    public void SaveSong(Song song)
+    public static void SaveSong(Song song)
     {
         string songsFolder = "/Songs/";
         Directory.CreateDirectory(Application.streamingAssetsPath + songsFolder);
@@ -38,7 +40,7 @@ public class SaveAndLoad : MonoBehaviour
         Save(songsFolder + song.songName, songText);
     }
 
-    public string Load(string fileName, string extension = ".json")
+    public static string Load(string fileName, string extension = ".json")
     {
         string url = Application.streamingAssetsPath + "/" + fileName + extension;
         
@@ -50,7 +52,7 @@ public class SaveAndLoad : MonoBehaviour
         return File.ReadAllText(url);
     }
 
-    public string LoadSimple(string fileName)
+    public static string LoadSimple(string fileName)
     {
         if (!File.Exists(fileName))
         {
@@ -60,7 +62,7 @@ public class SaveAndLoad : MonoBehaviour
         return File.ReadAllText(fileName);
     }
 
-    public List<Song> LoadSongs()
+    public static List<Song> LoadSongs()
     {
         List<Song> songs = new List<Song>();
         foreach(var aux in Directory.GetFiles(Application.streamingAssetsPath + "/Songs/"))
@@ -75,7 +77,7 @@ public class SaveAndLoad : MonoBehaviour
         return songs;
     }
 
-    public Sprite SpriteLoadCover(string filename)
+    public static Sprite SpriteLoadCover(string filename)
     {
         return Resources.Load<Sprite>("Cover/" + filename);
     }

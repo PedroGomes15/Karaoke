@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         };
         song = new Song("Evidências","evidencias_cover.png", "Evidencias", "4:55","Sertanejo", "Chitãozinho e Xororó",1990,SingType.SOLO, notes);*/
 
-        SaveAndLoad.instance.SaveSong(song);
+        SaveAndLoad.SaveSong(song);
 
         foreach (var aux in LoadSongs())
         {
@@ -35,6 +35,6 @@ public class GameManager : MonoBehaviour
 
     public List<Song> LoadSongs()
     {
-        return SaveAndLoad.instance.LoadSongs();
+        return SaveAndLoad.LoadSongs();
     }
 }

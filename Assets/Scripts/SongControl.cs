@@ -40,7 +40,7 @@ public class SongControl : MonoBehaviour
 
     public void SetupSong(Song song)
     {
-        cover.sprite = SaveAndLoad.instance.SpriteLoadCover(song.coverFilename);
+        cover.sprite = SaveAndLoad.SpriteLoadCover(song.coverFilename);
 
         songName.text = song.songName;
         singerName.text = song.singer;

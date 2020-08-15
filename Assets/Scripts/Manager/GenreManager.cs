@@ -18,8 +18,8 @@ public class GenreManager : MonoBehaviour
         }
         else
         {
-            string genresLoaded = SaveAndLoad.instance.Load("Genres");
-            genres = SaveAndLoad.instance.DeserializeObject<Genres>(genresLoaded).genres.ToList();
+            string genresLoaded = SaveAndLoad.Load("Genres");
+            genres = SaveAndLoad.DeserializeObject<Genres>(genresLoaded).genres.ToList();
         }
     }
 
@@ -42,8 +42,8 @@ public class GenreManager : MonoBehaviour
     public void EndProcessLines()
     {
         Genres allGenres = new Genres(genres.ToArray());
-        string s_Genres = SaveAndLoad.instance.SerializeObject(allGenres);
-        SaveAndLoad.instance.Save("Genres", s_Genres);
+        string s_Genres = SaveAndLoad.SerializeObject(allGenres);
+        SaveAndLoad.Save("Genres", s_Genres);
     }
 
     public Genre getGenre(string genre)

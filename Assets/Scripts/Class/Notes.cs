@@ -13,6 +13,10 @@ public class Notes
 
     public DuetSinger duetSinger = DuetSinger.NONE;
 
+    public Notes()
+    {
+    }
+
     public Notes(string startTime, string endTime, string subtitle, DuetSinger duetSinger = DuetSinger.NONE)
     {
         this.startTime = startTime;
