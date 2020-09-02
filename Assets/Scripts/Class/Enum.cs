@@ -23,7 +23,12 @@ public enum DuetSinger
 public enum GenreType
 {
     SERTANEJO,
-    FUNK,
+    DISCO,
     ROCK,
-    JAZZ
+    POP,
+    POP_ROCK,
+    MPB,
+    HIP_HOP,
+    RANDB,
+    REAGGAE
 }

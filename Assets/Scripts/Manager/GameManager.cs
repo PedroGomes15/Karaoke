@@ -8,11 +8,9 @@ public class GameManager : MonoBehaviour
 
     public Song[] allSongs;
 
-    public GameObject songControl;
+    public List<SongControl> songControllers;
 
-    public Transform parent;
-
-    public GenreManager genreManager;
+    public HudManager hudManager;
 
     void Start()
     {
@@ -23,14 +21,13 @@ public class GameManager : MonoBehaviour
         };
         song = new Song("Evidências","evidencias_cover.png", "Evidencias", "4:55","Sertanejo", "Chitãozinho e Xororó",1990,SingType.SOLO, notes);*/
 
-        SaveAndLoad.SaveSong(song);
+        //SaveAndLoad.SaveSong(song);
 
         foreach (var aux in LoadSongs())
         {
-            GameObject songGo = Instantiate(songControl, parent);
-            songGo.GetComponent<SongControl>().genreManager = this.genreManager;
-            songGo.GetComponent<SongControl>().SetupSong(aux);
+            songControllers.Add(hudManager.CreateSong(aux));
         }
+        hudManager.filter.LoadSongs(songControllers);
     }
 
     public List<Song> LoadSongs()
