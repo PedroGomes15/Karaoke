@@ -27,7 +27,7 @@ public class Song
     {
     }
 
-    public Song(string songName, string coverFilename, string songFilename, GenreType genre, string singer, int year, string categorie, SingType singType, List<Notes> notes)
+    public Song(string songName, string coverFilename, string songFilename, GenreType genre, string singer, int year, CategoryType categorie, SingType singType, List<Notes> notes)
     {
         this.songName = songName;
         this.coverFilename = coverFilename;
@@ -35,7 +35,7 @@ public class Song
         this.genre = genre.ToString();
         this.singer = singer;
         this.year = year;
-        this.categorie = categorie;
+        this.categorie = categorie.ToString();
         this.singType = singType;
         this.notes = notes;
     }

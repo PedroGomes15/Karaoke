@@ -9,6 +9,7 @@ public class FilterManager : MonoBehaviour
 
     public ConfigPanel_Decade panelDecade;
     public ConfigPanel_Genre panelGenre;
+    public ConfigPanel_Category panelCategory;
 
     public void LoadSongs(List<SongControl> songs)
     {
@@ -19,6 +20,7 @@ public class FilterManager : MonoBehaviour
     {
         panelDecade.Reset();
         panelGenre.Reset();
+        panelCategory.Reset();
 
         //ApplyFilter();
     }
@@ -27,6 +29,7 @@ public class FilterManager : MonoBehaviour
     {
         panelDecade.UncheckAll();
         panelGenre.UncheckAll();
+        panelCategory.UncheckAll();
 
         //ApplyFilter();
     }
@@ -37,10 +40,13 @@ public class FilterManager : MonoBehaviour
     {
         List<string> decades = panelDecade.SelectedToggle();
         List<string> genres = panelGenre.SelectedToggle();
+        List<string> categories = panelCategory.SelectedToggle();
 
         foreach (var auxSongs in songs)
         {
-            if (FilterDecade(decades, auxSongs.song.year) && genres.Contains(ConfigUtils.GetGenre(auxSongs.song.genre).ToString()))
+            if (FilterDecade(decades, auxSongs.song.year) && 
+                genres.Contains(ConfigUtils.GetGenre(auxSongs.song.genre).ToString()) && 
+                categories.Contains(ConfigUtils.GetCategory(auxSongs.song.categorie).ToString()))
             {
                 auxSongs.gameObject.SetActive(true);
             }

@@ -24,7 +24,7 @@ public class ConfigPanel_Genre : ConfigPanel
     void CreateGenre(string genre)
     {
         GameObject goDecade = Instantiate(object_reference, this.transform);
-        goDecade.transform.name += genre;
+        goDecade.transform.name += "_" + genre;
         goDecade.GetComponentInChildren<TextMeshProUGUI>().text = ConfigUtils.GenreFormat(genre);
         listToggle.Add(goDecade.GetComponent<Toggle>());
     }

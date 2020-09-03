@@ -51,7 +51,7 @@ public class SongControl : MonoBehaviour
 
         SetupTags(tags[0], genre.color, genre.genre.ToString());
         SetupTags(tags[1], genre.color, "Decada: " + ConfigUtils.YearToDecade(song.year));
-        SetupTags(tags[2], genre.color, song.categorie);
+        SetupTags(tags[2], genre.color, song.categorie.ToString());
         SetupTags(tags[3], genre.color, FormatText(song.singType.ToString()));
 
         songName.text = song.songName;

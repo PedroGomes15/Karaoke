@@ -17,6 +17,11 @@ public static class ConfigUtils
         return (GenreType)System.Enum.Parse(typeof(GenreType), genre.ToUpper());
     }
 
+    public static CategoryType GetCategory(string category)
+    {
+        return (CategoryType)System.Enum.Parse(typeof(CategoryType), category.ToUpper());
+    }
+
     public static string GenreFormat(string genre)
     {
         string retGenre = genre;

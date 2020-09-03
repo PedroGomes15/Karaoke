@@ -35,6 +35,7 @@ public class SongEditor : EditorWindow
 
     Sprite texture;
     GenreType genre;
+    CategoryType category;
     SingType sType;
 
     Texture textureSalvar;
@@ -79,7 +80,8 @@ public class SongEditor : EditorWindow
             song.year = EditorGUILayout.IntField(sName, song.year, GUILayout.Width(175));
             
             sName.text = "Categoria: ";
-            song.categorie = EditorGUILayout.TextField(sName, song.categorie, GUILayout.Width(400));
+            category = (CategoryType)EditorGUILayout.EnumPopup(sName, category, GUILayout.Width(400));
+            song.categorie = category.ToString();
 
             sName.text = "Tipo de Cantor: ";
             song.singType = (SingType)EditorGUILayout.EnumPopup(sName, song.singType, GUILayout.Width(300));

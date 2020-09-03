@@ -32,3 +32,12 @@ public enum GenreType
     RANDB,
     REAGGAE
 }
+
+public enum CategoryType
+{
+    NACIONAL,
+    INTERNACIONAL,
+    DISNEY,
+    NATAL,
+    MUSICAL
+}
