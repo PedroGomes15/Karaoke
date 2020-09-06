@@ -11,7 +11,7 @@ public class SongEditor : EditorWindow
 {
     static EditorWindow window;
 
-    [MenuItem("Karaoke/Song Editor %#m")]
+    [MenuItem("Karaoke/Song Editor")]
     static void Init()
     {
         window = GetWindow<SongEditor>("Song Editor");
