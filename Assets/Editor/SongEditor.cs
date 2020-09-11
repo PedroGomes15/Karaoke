@@ -24,6 +24,7 @@ public class SongEditor : EditorWindow
         song = new Song();
         textureSalvar = Resources.Load("salvar") as Texture;
         textureExcluir = Resources.Load("excluir") as Texture;
+        song.notes.Add(new Notes());
     }
 
     void OnGUI()
@@ -42,6 +43,8 @@ public class SongEditor : EditorWindow
     Texture textureExcluir;
 
     Vector2 pos;
+    
+    string fullSubtitle = "";
 
     void SetupSong()
     {
@@ -110,9 +113,12 @@ public class SongEditor : EditorWindow
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-        GUILayout.Space(10);
+        GUILayout.Space(5);
 
         //Notas
+        var style = new GUIStyle(GUI.skin.textArea) {alignment = TextAnchor.MiddleCenter};
+        //fullSubtitle = EditorGUILayout.TextArea(fullSubtitle, style,GUILayout.ExpandWidth(true), GUILayout.Height(70));
+        GUILayout.Space(5);
 
         pos = EditorGUILayout.BeginScrollView(pos, false, true, GUILayout.Height(300));
 
@@ -127,6 +133,22 @@ public class SongEditor : EditorWindow
         GUILayout.Space(10);
 
         GUILayout.BeginHorizontal();
+
+        if (Event.current.type == EventType.KeyUp && 
+        (Event.current.modifiers == EventModifiers.Control || Event.current.modifiers == EventModifiers.Command) && 
+        GUI.GetNameOfFocusedControl() == "Subtitle")
+        {
+            if (Event.current.keyCode == KeyCode.V)
+            {
+                var sub = song.notes[0].subtitle;
+                song.notes.Clear();
+                Debug.Log(sub);
+                foreach (var aux in sub.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
+                {
+                    song.notes.Add(new Notes(aux));
+                }
+            }
+        }
 
         GUILayout.Label("Tempo de Inicio");
 
@@ -157,6 +179,7 @@ public class SongEditor : EditorWindow
 
             GUILayout.FlexibleSpace();
 
+            GUI.SetNextControlName("Subtitle");
             note.subtitle = EditorGUILayout.TextField(note.subtitle, GUILayout.Width(song.singType != SingType.DUET?600:500));
 
             GUILayout.FlexibleSpace();

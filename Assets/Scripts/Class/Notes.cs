@@ -16,6 +16,11 @@ public class Notes
     public Notes()
     {
     }
+    
+    public Notes(string subtitle)
+    {
+        this.subtitle = subtitle;
+    }
 
     public Notes(string startTime, string endTime, string subtitle, DuetSinger duetSinger = DuetSinger.NONE)
     {
