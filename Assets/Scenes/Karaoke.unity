@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-    songName: Evidencias
+    songName: Watermelon Sugar
     coverFilename: 
     songFilename: 
     genre: 
@@ -447,6 +447,7 @@ MonoBehaviour:
       subtitle: 
       duetSinger: 0
   timer: 0
+  timerClean: 0
   txtSubtitle: {fileID: 1894845482}
 --- !u!4 &593065867
 Transform:

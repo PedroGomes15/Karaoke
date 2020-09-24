@@ -39,6 +39,8 @@ public class SongEditor : EditorWindow
     CategoryType category;
     SingType sType;
 
+    string fileSongPath;
+
     Texture textureSalvar;
     Texture textureExcluir;
 
@@ -54,6 +56,8 @@ public class SongEditor : EditorWindow
 
         GUILayout.BeginHorizontal(GUILayout.Height(100));
 
+        GUILayout.BeginVertical();
+
         GUIContent sName = new GUIContent();
         texture = EditorGUILayout.ObjectField(sName, texture, typeof(Sprite), true,
             GUILayout.Width(EditorGUIUtility.singleLineHeight * 8),
@@ -62,6 +66,25 @@ public class SongEditor : EditorWindow
         if (texture != null)
             song.coverFilename = texture.name;
 
+        if (GUILayout.Button("Carregar", GUILayout.Width(EditorGUIUtility.singleLineHeight * 8)))
+        {
+            var fileImage = EditorUtility.OpenFilePanel("Carregar Image", "", "png,jpg,jpge");
+
+            var resources = Application.dataPath + "/Resources/Cover";
+            var filename = Path.GetFileName(fileImage);
+            string[] paths = { resources, filename};
+            var fullFilename = Path.Combine(paths);
+
+            File.Copy(fileImage, fullFilename);
+
+            AssetDatabase.Refresh();
+            Debug.Log("teste " + filename);
+            texture = Resources.Load<Sprite>("Cover/" + filename);
+        }
+
+        
+        GUILayout.EndVertical();
+
         EditorGUILayout.Space(20);
 
         GUILayout.BeginVertical();
@@ -69,8 +92,19 @@ public class SongEditor : EditorWindow
             sName.text = "Nome da Musica: ";
             song.songName = EditorGUILayout.TextField(sName, song.songName, GUILayout.Width(400));
 
+
+        GUILayout.BeginHorizontal();
+
             sName.text = "Arquivo da Musica: ";
-            song.songFilename = EditorGUILayout.TextField(sName, song.songFilename, GUILayout.Width(400));
+            song.songFilename = EditorGUILayout.TextField(sName, song.songFilename, GUILayout.Width(316));
+
+            if(GUILayout.Button("Carregar", GUILayout.Width(80)))
+            {
+                fileSongPath = EditorUtility.OpenFilePanel("Carregar Musica", "", "mp3");
+                song.songFilename = Path.GetFileNameWithoutExtension(fileSongPath);
+            }
+
+        GUILayout.EndHorizontal();
 
             sName.text = "Nome do Cantor: ";
             song.singer = EditorGUILayout.TextField(sName, song.singer, GUILayout.Width(400));
@@ -103,8 +137,7 @@ public class SongEditor : EditorWindow
 
         if (GUILayout.Button(textureSalvar, GUILayout.Width(60), GUILayout.Height(60)))
         {
-            SaveAndLoad.SaveSong(song);
-            AssetDatabase.Refresh();
+            SaveSong();
         }
            
         GUILayout.EndVertical();
@@ -213,6 +246,20 @@ public class SongEditor : EditorWindow
         {
             Clean();
         }
+    }
+
+
+    private void SaveSong()
+    {
+        var resources = Application.dataPath + "/Resources/Song";
+        var filenameLyric = song.songFilename + Path.GetExtension(fileSongPath);
+        string[] paths = {resources, "Lyric", filenameLyric};
+        var fullFileNameLyic = Path.Combine(paths);
+
+        File.Copy(fileSongPath, fullFileNameLyic);        
+
+        SaveAndLoad.SaveSong(song);
+        AssetDatabase.Refresh();
     }
 
     private String formatGenreText(string txt)
