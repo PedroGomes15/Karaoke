@@ -78,8 +78,7 @@ public class SongEditor : EditorWindow
             File.Copy(fileImage, fullFilename);
 
             AssetDatabase.Refresh();
-            Debug.Log("teste " + filename);
-            texture = Resources.Load<Sprite>("Cover/" + filename);
+            texture = Resources.Load<Sprite>("Cover/" + Path.GetFileNameWithoutExtension(filename));
         }
 
         
@@ -175,10 +174,17 @@ public class SongEditor : EditorWindow
             {
                 var sub = song.notes[0].subtitle;
                 song.notes.Clear();
-                Debug.Log(sub);
-                foreach (var aux in sub.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
+
+                SaveAndLoad.Save("Teste", sub,".txt");
+
+                using (StringReader reader = new StringReader(sub))
                 {
-                    song.notes.Add(new Notes(aux));
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if(line != "")
+                            song.notes.Add(new Notes(line));
+                    }
                 }
             }
         }
@@ -204,16 +210,22 @@ public class SongEditor : EditorWindow
 
         GUILayout.EndHorizontal();
 
-        foreach (var note in song.notes)
+        foreach (var note in song.notes.ToList())
         {
             GUILayout.BeginHorizontal();
+
+            sName.text = "x";
+            if (GUILayout.Button(sName))
+            {
+                song.notes.Remove(note);
+            }
 
             note.startTime = EditorGUILayout.TextField(formatTime(note.startTime), GUILayout.Width(75));
 
             GUILayout.FlexibleSpace();
 
             GUI.SetNextControlName("Subtitle");
-            note.subtitle = EditorGUILayout.TextField(note.subtitle, GUILayout.Width(song.singType != SingType.DUET?600:500));
+            note.subtitle = EditorGUILayout.TextArea(note.subtitle, GUILayout.Width(song.singType != SingType.DUET?600:500));
 
             GUILayout.FlexibleSpace();
 
@@ -226,6 +238,7 @@ public class SongEditor : EditorWindow
                 note.duetSinger = (DuetSinger)EditorGUILayout.EnumPopup(note.duetSinger, GUILayout.Width(100));
             }
             GUILayout.Space(15);
+
 
             GUILayout.EndHorizontal();
         }
