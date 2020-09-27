@@ -15,7 +15,7 @@ public class SongEditor : EditorWindow
     static void Init()
     {
         window = GetWindow<SongEditor>("Song Editor");
-        window.position = new Rect(150, 150, 870, 500);
+        window.position = new Rect(150, 150, 920, 540);
         window.Show();
     }
 
@@ -124,6 +124,8 @@ public class SongEditor : EditorWindow
 
         GUILayout.EndVertical();
 
+        GUILayout.BeginHorizontal();
+
         GUILayout.BeginVertical();
 
         if (GUILayout.Button(textureExcluir, GUILayout.Width(60), GUILayout.Height(60)))
@@ -138,8 +140,19 @@ public class SongEditor : EditorWindow
         {
             SaveSong();
         }
-           
+
         GUILayout.EndVertical();
+
+        GUILayout.BeginVertical();
+
+        if (GUILayout.Button(textureSalvar, GUILayout.Width(60), GUILayout.Height(60)))
+        {
+            StartPlay();
+        }
+
+        GUILayout.EndVertical();
+
+        GUILayout.EndHorizontal();
 
         GUILayout.EndHorizontal();
 
@@ -317,6 +330,28 @@ public class SongEditor : EditorWindow
         }
         return time;
     }
+
+    public void StartPlay()
+    {
+        EditorApplication.EnterPlaymode();
+        FindObjectOfType<SubtitleTest>().song = song;
+        /*
+        string fileLocation = "Assets/Prefabs/SubtitleControlerTest.prefab";
+        GameObject temp = new GameObject();
+
+        var newObject = PrefabUtility.SaveAsPrefabAsset(temp, fileLocation);
+        subTest = PrefabUtility.InstantiatePrefab(newObject) as GameObject;
+
+        DestroyImmediate(temp);
+
+        subTest.GetComponent<SubtitleTest>().song = song;*/
+    }
+
+    private void Update()
+    {
+        FindObjectOfType<SubtitleTest>().song = song;
+    }
+
 }
 
 public class SongEditorConfirm : EditorWindow

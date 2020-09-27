@@ -5,7 +5,7 @@ using TMPro;
 using System;
 using System.Globalization;
 
-public class KarokeSubtitle : MonoBehaviour
+public class KaraokeSubtitle : MonoBehaviour
 {
     public Song song;
 
@@ -14,9 +14,9 @@ public class KarokeSubtitle : MonoBehaviour
 
     public TextMeshProUGUI txtSubtitle;
 
-    private void Start()
+    public virtual void Start()
     {
-        song = SaveAndLoad.LoadSongs()[0];
+       //song = SaveAndLoad.LoadSongs()[0];
     }
 
     private void FixedUpdate()
