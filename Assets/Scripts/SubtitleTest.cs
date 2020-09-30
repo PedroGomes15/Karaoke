@@ -5,4 +5,14 @@ using UnityEngine;
 public class SubtitleTest : MonoBehaviour
 {
     public Song song;
+
+    public void PlaySubtitle()
+    {
+
+    }
+
+    public void PauseSubtitle()
+    {
+
+    }
 }

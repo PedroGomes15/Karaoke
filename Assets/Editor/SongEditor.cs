@@ -45,8 +45,6 @@ public class SongEditor : EditorWindow
     Texture textureExcluir;
 
     Vector2 pos;
-    
-    string fullSubtitle = "";
 
     void SetupSong()
     {
