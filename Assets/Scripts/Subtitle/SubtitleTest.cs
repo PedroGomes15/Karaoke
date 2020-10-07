@@ -6,6 +6,13 @@ public class SubtitleTest : MonoBehaviour
 {
     public Song song;
 
+    public SubtitleController controller;
+
+    public void Awake()
+    {
+        controller.song = song;
+    }
+
     public void PlaySubtitle()
     {
 

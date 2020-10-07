@@ -13,11 +13,13 @@ public class PlayerManager : MonoBehaviour
 
     public TextMeshProUGUI txtEndTime, txtCurrentTime;
 
-    public Slider slider;
-
     public Image handler;
 
     public Image fill;
+
+    float halfWidth = 0;
+
+    bool drag = false;
 
     public void btn_Play()
     {
@@ -41,21 +43,43 @@ public class PlayerManager : MonoBehaviour
     public void Start()
     {
         source.clip = Resources.Load("Song/Lyric/" + subtitleTester.song.songFilename) as AudioClip;
-        slider.maxValue = source.clip.length;
         txtEndTime.text = ConvertTime(source.clip.length);
         source.Play();
+
+        halfWidth = fill.rectTransform.rect.width / 2;
     }
 
 
     private void Update()
     {
         txtCurrentTime.text = ConvertTime(source.time);
-        //source.time = slider.value;
 
-        Vector2 t = handler.transform.localPosition;
-        t.x = fill.fillAmount * fill.rectTransform.rect.width;
-        Debug.Log(t);
-        handler.rectTransform.localPosition = t;
+        if (!drag)
+        {
+            fill.fillAmount = Mathf.InverseLerp(0, source.clip.length, source.time);
+            Vector2 aux = handler.transform.localPosition;
+            aux.x = Mathf.Lerp(-halfWidth, halfWidth, fill.fillAmount);
+            handler.transform.localPosition = aux;
+        }
+    }
+
+    public void Drag()
+    {
+        drag = true;
+
+        Vector3 point = Input.mousePosition;
+        point.x = Mathf.Clamp(point.x, fill.transform.position.x + -halfWidth, fill.transform.position.x + halfWidth);
+        point.y = handler.transform.position.y;
+        handler.transform.position = point;
+        
+        fill.fillAmount = Mathf.InverseLerp(-halfWidth, halfWidth, handler.transform.localPosition.x);
+
+        source.time = Mathf.Lerp(0, source.clip.length, fill.fillAmount);
+    }
+
+    public void Drop()
+    {
+        drag = false;
     }
 
     private string ConvertTime(float secs)

@@ -1,4 +1,7 @@
-﻿
+﻿using System;
+using System.Globalization;
+using UnityEngine;
+
 public static class ConfigUtils
 {
 
@@ -29,5 +32,11 @@ public static class ConfigUtils
         retGenre = retGenre.Replace("AND", "&");
 
         return retGenre;
+    }
+
+    public static float ConvertTime(string time)
+    {
+        var convertTime = DateTime.ParseExact(time, "m:ss", CultureInfo.InvariantCulture);
+        return (float)convertTime.TimeOfDay.TotalSeconds;
     }
 }
