@@ -12,38 +12,8 @@ public class GenreManager : MonoBehaviour
 
     void Awake()
     {
-        if (forceDownload)
-        {
-            Loader.instance.StartLoader("1k6uoxVGg9UnGe2v_vRkoOmjiSpqFA1wv4iZf5hw-_zg", ProcessLineFromCSV, EndProcessLines);
-        }
-        else
-        {
             string genresLoaded = SaveAndLoad.Load("Genres");
             genres = SaveAndLoad.DeserializeObject<Genres>(genresLoaded).genres.ToList();
-        }
-    }
-
-    public void ProcessLineFromCSV(List<string> currLineElements, int currLineIndex)
-    {
-        if (currLineIndex != 0)
-        {
-            if (currLineElements.Count > 1)
-            {
-                Genre genre = new Genre((GenreType)System.Enum.Parse(typeof(GenreType), currLineElements[0].ToUpper()), currLineElements[1]);
-                genres.Add(genre);
-            }
-            else
-            {
-                Debug.LogError("Database line did not fall into one of the expected categories.");
-            }
-        }
-    }
-
-    public void EndProcessLines()
-    {
-        Genres allGenres = new Genres(genres.ToArray());
-        string s_Genres = SaveAndLoad.SerializeObject(allGenres);
-        SaveAndLoad.Save("Genres", s_Genres);
     }
 
     public Genre getGenre(string genre)

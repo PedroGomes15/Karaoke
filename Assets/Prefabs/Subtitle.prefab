@@ -156,4 +156,4 @@ MonoBehaviour:
   index: 0
   canMove: 1
   played: 0
-  speed: 300
+  speed: 1000

@@ -42,6 +42,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log(subtitleTester.song.songFilename);
         source.clip = Resources.Load("Song/Lyric/" + subtitleTester.song.songFilename) as AudioClip;
         txtEndTime.text = ConvertTime(source.clip.length);
         source.Play();
